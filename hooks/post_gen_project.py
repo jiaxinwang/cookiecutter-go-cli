@@ -50,7 +50,7 @@ def go_mod_vendor():
         gomod.wait()
 
 
-if '{{ cookiecutter.use_db}}'.lower() == 'none':
+if '{{ cookiecutter.use_db}}'.lower() != 'none':
     remove_db_files()
 
 # Initialize Go Modules
