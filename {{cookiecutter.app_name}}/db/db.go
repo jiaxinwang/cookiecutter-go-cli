@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/sirupsen/logrus"
 
-	_ "github.com/jinzhu/gorm/dialects/'{{cookiecutter.use_db}}'"
+	_ "github.com/jinzhu/gorm/dialects/{{cookiecutter.use_db}}"
 )
 
 // DB ...
