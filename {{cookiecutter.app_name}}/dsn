@@ -1,3 +1,1 @@
-{% if cookiecutter.use_db == "postgres" -%}host=127.0.0.1 user=root dbname=tom sslmode=disable password=password port=5432{%- endif %}
-{% if cookiecutter.use_db == "mysql" -%}root:password@127.0.0.1:3306/dbname?charset=utf8&parseTime=True&loc=Local{%- endif %}
-{% if cookiecutter.use_db == "sqlite" -%}./sqlite.db{%- endif %}
+{% if cookiecutter.use_db == "postgres" -%}host=127.0.0.1 user=root dbname=tom sslmode=disable password=password port=5432{%- endif %}{% if cookiecutter.use_db == "mysql" -%}root:password@127.0.0.1:3306/dbname?charset=utf8&parseTime=True&loc=Local{%- endif %}{% if cookiecutter.use_db == "sqlite" -%}./sqlite.db{%- endif %}
