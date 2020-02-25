@@ -34,6 +34,7 @@ def init_git():
     for command in GIT_COMMANDS:
         git = Popen(command, cwd=PROJECT_DIRECTORY)
         git.wait()
+
 def remove_db_files():
     shutil.rmtree(os.path.join(
         PROJECT_DIRECTORY, "db"
@@ -50,7 +51,7 @@ def go_mod_vendor():
         gomod.wait()
 
 
-if '{{ cookiecutter.use_db}}'.lower() != 'none':
+if '{{cookiecutter.use_db}}'.lower() == 'none':
     remove_db_files()
 
 # Initialize Go Modules
