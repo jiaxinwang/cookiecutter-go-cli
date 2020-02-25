@@ -27,13 +27,18 @@ def init_git():
     """
     GIT_COMMANDS = [
         ["git", "init"],
-        ["git", "add", "."],
+        ["git", "add", "--all"],
         ["git", "commit", "-a", "-m", "Initial Commit."]
     ]
 
     for command in GIT_COMMANDS:
         git = Popen(command, cwd=PROJECT_DIRECTORY)
         git.wait()
+def remove_db_files():
+    shutil.rmtree(os.path.join(
+        PROJECT_DIRECTORY, "db"
+    ))
+    remove_file(os.path.join(PROJECT_DIRECTORY, "action", "db.go"))
 
 def go_mod_vendor():
     GOMOD_COMMANDS = [
@@ -45,6 +50,11 @@ def go_mod_vendor():
         gomod.wait()
 
 
-# Initialize Git (should be run after all file have been modified or deleted)
+if '{{ cookiecutter.use_db}}'.lower() == 'none':
+    remove_db_files()
+
+# Initialize Go Modules
 go_mod_vendor()
+
+# Initialize Git (should be run after all file have been modified or deleted)
 init_git()

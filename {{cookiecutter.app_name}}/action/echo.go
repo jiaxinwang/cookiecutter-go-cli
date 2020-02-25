@@ -1,10 +1,6 @@
 package action
 
 import (
-	"errors"
-	"fmt"
-	"regexp"
-
 	"github.com/urfave/cli/v2"
 )
 
