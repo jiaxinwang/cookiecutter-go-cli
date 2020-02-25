@@ -35,6 +35,16 @@ def init_git():
         git = Popen(command, cwd=PROJECT_DIRECTORY)
         git.wait()
 
+def go_mod_vendor():
+    GOMOD_COMMANDS = [
+        ["go", "mod", "vendor"]
+    ]
+
+    for command in GOMOD_COMMANDS:
+        gomod = Popen(command, cwd=PROJECT_DIRECTORY)
+        gomod.wait()
+
 
 # Initialize Git (should be run after all file have been modified or deleted)
-    init_git()
+go_mod_vendor()
+init_git()
