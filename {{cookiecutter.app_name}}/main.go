@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"pt/action"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/action"
 
 	nested "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/sirupsen/logrus"
