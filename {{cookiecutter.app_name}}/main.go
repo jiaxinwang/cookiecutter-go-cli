@@ -38,6 +38,14 @@ func main() {
 			Name:  "star, s",
 			Value: "the stars look very different today",
 		},
+{% if cookiecutter.use_db == "sqlite" -%}
+		&cli.StringFlag{
+			Name:     "dsn, d",
+			Usage:    "data source name",
+			Value:    "",
+			FilePath: "./dsn",
+		},
+{%- endif %}
 	}
 
 	err = app.Run(os.Args)
