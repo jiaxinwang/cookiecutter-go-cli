@@ -41,9 +41,10 @@ def remove_db_files():
     ))
     remove_file(os.path.join(PROJECT_DIRECTORY, "action", "db.go"))
 
-def go_mod_vendor():
+def go():
     GOMOD_COMMANDS = [
         ["go", "mod", "vendor"]
+        ["gofmt", "-s", "-w", "."]
     ]
 
     for command in GOMOD_COMMANDS:
@@ -55,7 +56,7 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
     remove_db_files()
 
 # Initialize Go Modules
-go_mod_vendor()
+go()
 
 # Initialize Git (should be run after all file have been modified or deleted)
 init_git()
