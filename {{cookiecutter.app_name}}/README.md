@@ -1,4 +1,4 @@
-# cookiecutter-golang
+# {{cookiecutter.full_name}}
 
 ## Features
 
