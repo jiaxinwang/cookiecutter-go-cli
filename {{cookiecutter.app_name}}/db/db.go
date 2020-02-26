@@ -14,7 +14,7 @@ var DB *gorm.DB
 func InitDB(dbURI string) {
 	var err error
 
-	if DB, err = gorm.Open("postgres", dbURI); err != nil {
+	if DB, err = gorm.Open("{{cookiecutter.use_db}}", dbURI); err != nil {
 		logrus.Panic(err)
 	}
 }
