@@ -43,7 +43,7 @@ def remove_db_files():
 
 def go():
     GOMOD_COMMANDS = [
-        ["go", "mod", "vendor"]
+        ["go", "mod", "vendor"],
         ["gofmt", "-s", "-w", "."]
     ]
 
