@@ -38,7 +38,7 @@ func main() {
 			Name:  "star, s",
 			Value: "the stars look very different today",
 		},
-{% if cookiecutter.use_db == "sqlite" -%}
+{% if cookiecutter.use_db != "none" -%}
 		&cli.StringFlag{
 			Name:     "dsn, d",
 			Usage:    "data source name",
