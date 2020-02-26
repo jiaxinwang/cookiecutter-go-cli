@@ -11,7 +11,7 @@ import (
 var DB *gorm.DB
 
 // InitDB ...
-func InitDB(dbURI string) {
+func Connect(dbURI string) {
 	var err error
 
 	if DB, err = gorm.Open("{{cookiecutter.use_db}}", dbURI); err != nil {
