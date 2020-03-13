@@ -4,5 +4,6 @@
     "project_short_description": "Ground Control to Major Tom ...",
     "use_github": "n",
     "github_username": "jiaxinwang",
-    "use_db": ["postgres", "mysql", "sqlite","none"]
+    "use_db": ["postgres", "mysql", "sqlite","none"],
+    "use_gin": "n"
 }

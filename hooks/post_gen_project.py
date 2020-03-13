@@ -55,6 +55,10 @@ def go():
 if '{{cookiecutter.use_db}}'.lower() == 'none':
     remove_db_files()
 
+if '{{cookiecutter.use_gin}}'.lower() == 'none':
+    remove_file(os.path.join(PROJECT_DIRECTORY, "action", "server.go"))
+
+
 # Initialize Go Modules
 go()
 
