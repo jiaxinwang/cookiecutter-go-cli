@@ -57,7 +57,13 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
 
 if '{{cookiecutter.use_gin}}'.lower() == 'none':
     remove_file(os.path.join(PROJECT_DIRECTORY, "action", "server.go"))
-
+else
+    SED_COMMANDS = [
+        ["sed", "-i", "'s?__PATH__?'`pwd`'?'", "{{cookiecutter.app_name}}.code-workspace"],
+    ]
+    for command in SED_COMMANDS:
+        sed = Popen(command, cwd=PROJECT_DIRECTORY)
+        sed.wait()
 
 # Initialize Go Modules
 go()

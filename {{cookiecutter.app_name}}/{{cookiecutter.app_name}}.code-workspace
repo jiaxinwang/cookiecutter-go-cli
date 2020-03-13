@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "{{cookiecutter.app_name}}"
+			"path": "__PATH__"
 		}
 	],
 	"settings": {}
