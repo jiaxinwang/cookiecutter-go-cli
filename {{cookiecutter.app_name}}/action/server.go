@@ -17,8 +17,9 @@ var Server = cli.Command{
 	Action: run,
 }
 
-func run(c *cli.Context) {
+func run(c *cli.Context) error {
 	GinEngine().Run("")
+	return nil
 }
 
 // GinEngine ...
