@@ -61,7 +61,7 @@ else
     p3 = "'s?__PATH__?'".join(PROJECT_DIRECTORY).join("'?'")
     SED_COMMANDS = [
         # ["sed", "-i", "'s?__PATH__?'`pwd`'?'", "{{cookiecutter.app_name}}.code-workspace"],
-        ["sed", "-i", p3, os.path.join(PROJECT_DIRECTORY, "{{cookiecutter.app_name}}.code-workspace"),
+        ["sed", "-i", p3, os.path.join(PROJECT_DIRECTORY)]
     ]
     for command in SED_COMMANDS:
         sed = Popen(command, cwd=PROJECT_DIRECTORY)
