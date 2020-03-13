@@ -60,13 +60,13 @@ if '{{cookiecutter.use_gin}}'.lower() == 'none':
 else
     p3 = "'s?__PATH__?'"+PROJECT_DIRECTORY+"'?'"
     print p3
-    SED_COMMANDS = [
+    # SED_COMMANDS = [
         # ["sed", "-i", "'s?__PATH__?'`pwd`'?'", "{{cookiecutter.app_name}}.code-workspace"],
-        ["sed", "-i", p3, os.path.join(PROJECT_DIRECTORY)]
-    ]
-    for command in SED_COMMANDS:
-        sed = Popen(command, cwd=PROJECT_DIRECTORY)
-        sed.wait()
+        # ["sed", "-i", p3, os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')]
+    # ]
+    # for command in SED_COMMANDS:
+    #     sed = Popen(command, cwd=PROJECT_DIRECTORY)
+    #     sed.wait()
 
 # Initialize Go Modules
 go()
