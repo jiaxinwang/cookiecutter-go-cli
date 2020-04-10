@@ -57,16 +57,15 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
 
 if '{{cookiecutter.use_gin}}'.lower() == 'none':
     remove_file(os.path.join(PROJECT_DIRECTORY, "action", "server.go"))
-else
-    p3 = "'s?__PATH__?'"+PROJECT_DIRECTORY+"'?'"
-    print p3
-    # SED_COMMANDS = [
-        # ["sed", "-i", "'s?__PATH__?'`pwd`'?'", "{{cookiecutter.app_name}}.code-workspace"],
-        # ["sed", "-i", p3, os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')]
-    # ]
-    # for command in SED_COMMANDS:
-    #     sed = Popen(command, cwd=PROJECT_DIRECTORY)
-    #     sed.wait()
+else:
+    pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
+    wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
+    SED_COMMANDS = [
+        ["sed", "-i", pattern, wsfile]
+    ]
+    for command in SED_COMMANDS:
+        sed = Popen(command, cwd=PROJECT_DIRECTORY)
+        sed.wait()
 
 # Initialize Go Modules
 go()
