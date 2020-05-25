@@ -54,7 +54,9 @@ func main() {
 	app.Name = "{{cookiecutter.app_name}}"
 	app.Version = "0.1.0"
 	app.Commands = []*cli.Command{
-		&action.Echo,
+		&echo,
+		&server,
+		&database,
 	}
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
@@ -89,3 +91,39 @@ func main() {
 		panic(err)
 	}
 }
+
+var echo = cli.Command{
+	Name:  "echo",
+	Usage: "3... 2... 1... liftoff",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name: "d",
+		},
+	},
+	Action: action.Echo,
+}
+
+var server = cli.Command{
+	Name:  "server",
+	Usage: "http server",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:  "conf, c",
+			Value: "config.toml",
+		},
+	},
+	Action: action.Server,
+}
+
+var database = cli.Command{
+	Name:  "server",
+	Usage: "http server",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:  "conf, c",
+			Value: "config.toml",
+		},
+	},
+	Action: action.InitDB,
+}
+

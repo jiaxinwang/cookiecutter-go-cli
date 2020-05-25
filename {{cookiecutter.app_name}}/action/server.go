@@ -5,19 +5,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var Server = cli.Command{
-	Name:  "server",
-	Usage: "http server",
-	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:  "conf, c",
-			Value: "config.toml",
-		},
-	},
-	Action: run,
-}
-
-func run(c *cli.Context) error {
+// Server ...
+func Server(c *cli.Context) error {
 	GinEngine().Run("")
 	return nil
 }

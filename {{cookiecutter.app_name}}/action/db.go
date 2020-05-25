@@ -6,7 +6,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func initDB(c *cli.Context) error {
+// InitDB ...
+func InitDB(c *cli.Context) error {
 	db.Connect(c.String(`dsn`))
 	if c.Bool("recreate") {
 		db.DB.DropTable()
