@@ -3,6 +3,7 @@ package action
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/urfave/cli/v2"
+	"{{cookiecutter.github_username}}/middleware"
 )
 
 // Server ...
@@ -15,6 +16,9 @@ func Server(c *cli.Context) error {
 func GinEngine() *gin.Engine {
 	var r *gin.Engine
 	r = gin.Default()
+	r.Use(middleware.Access)
+	r.Use(middleware.Recovery)
+	r.Use(middleware.RequestLogger)
 	r.GET("/health")
 	V1(r)
 	return r

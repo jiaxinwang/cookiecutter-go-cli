@@ -57,6 +57,7 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
 
 if '{{cookiecutter.use_gin}}'.lower() == 'none':
     remove_file(os.path.join(PROJECT_DIRECTORY, "action", "server.go"))
+    remove_file(os.path.join(PROJECT_DIRECTORY, "middleware"))
 else:
     pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
     wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
