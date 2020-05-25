@@ -58,12 +58,14 @@ func main() {
 	}
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
-			Name:  "star, s",
-			Value: "the stars look very different today",
+			Name:    `star`,
+			Aliases: []string{`s`},
+			Value:   "the stars look very different today",
 		},
 {% if cookiecutter.use_db != "none" -%}
 		&cli.StringFlag{
-			Name:     "dsn, d",
+			Name:     `dsn`,
+			Aliases:  []string{`d`},
 			Usage:    "data source name",
 			Value:    "",
 			FilePath: "./dsn",
