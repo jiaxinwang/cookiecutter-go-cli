@@ -55,14 +55,23 @@ func main() {
 	app.Version = "0.1.0"
 	app.Commands = []*cli.Command{
 		&echo,
+{% if cookiecutter.use_gin == "y" -%}		
 		&server,
+{%- endif %}
+{% if cookiecutter.use_db != "none" -%}		
 		&database,
+{%- endif %}
 	}
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
 			Name:    `star`,
 			Aliases: []string{`s`},
 			Value:   "the stars look very different today",
+		},
+		&cli.StringFlag{
+			Name:  "conf",
+			Aliases: []string{`c`},
+			Value: "./config.toml",
 		},
 {% if cookiecutter.use_db != "none" -%}
 		&cli.StringFlag{
@@ -103,27 +112,20 @@ var echo = cli.Command{
 	Action: action.Echo,
 }
 
+{% if cookiecutter.use_gin == "y" -%}
 var server = cli.Command{
 	Name:  "server",
 	Usage: "http server",
-	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:  "conf, c",
-			Value: "config.toml",
-		},
-	},
+	Flags: []cli.Flag{},
 	Action: action.Server,
 }
+{%- endif %}
 
+{% if cookiecutter.use_db != "none" -%}		
 var database = cli.Command{
-	Name:  "server",
-	Usage: "http server",
-	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:  "conf, c",
-			Value: "config.toml",
-		},
-	},
+	Name:  "db",
+	Usage: "db",
+	Flags: []cli.Flag{},
 	Action: action.InitDB,
 }
-
+{%- endif %}
