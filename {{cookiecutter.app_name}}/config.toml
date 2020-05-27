@@ -1,0 +1,15 @@
+[Server]
+Listen = ":42424"
+Env = "Dev"
+MaxHttpRequestBody = 4
+UseTLS = false
+TLSPem = ""
+TLSKey = ""
+
+[Database]
+DSN = "host=127.0.0.1 user=root dbname=permission sslmode=disable password=password port=5432"
+    [Permission]
+    DSN="host=127.0.0.1 user=root dbname=permission sslmode=disable password=password port=5432"
+    DB="permission"
+
+
