@@ -4,12 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/urfave/cli/v2"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/middleware"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/config"
 	v1 "{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/v1"
+
 )
 
 // Server ...
 func Server(c *cli.Context) error {
-	GinEngine().Run("")
+	config.Load(c.String(`conf`))
+	GinEngine().Run(config.Config.Server.Listen)
 	return nil
 }
 
