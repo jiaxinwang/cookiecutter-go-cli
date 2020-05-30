@@ -9,8 +9,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Register ...
-func Register(c *gin.Context) {
+// Signup ...
+func Signup(c *gin.Context) {
 	requestID := c.MustGet("requestID")
 	param := struct {
 		Name     string `valid:"alphanum,required,stringlength(6|12)"`
@@ -29,7 +29,7 @@ func Register(c *gin.Context) {
 		response.ClientErr(c, err.Error())
 		return
 	} else {
-		logrus.Print(result)
+		logrus.Trace(result)
 	}
 
 	userState := auth.Perm.UserState()
@@ -39,4 +39,30 @@ func Register(c *gin.Context) {
 	}
 	userState.AddUser(param.Name, param.Password, param.Email)
 	response.Response(c, 0, "", nil)
+}
+
+// Login ...
+func Login(c *gin.Context) {
+	requestID := c.MustGet("requestID")
+	var param struct {
+		Username string
+		Password string
+	}
+
+	if err := c.ShouldBindJSON(&param); err != nil {
+		logrus.WithField("requestID", requestID).Error(err)
+		response.ClientErr(c, err.Error())
+		return
+	}
+
+	userState := auth.Perm.UserState()
+	if !userState.HasUser(param.Username) {
+		response.ClientErr(c, "user does not exist")
+		return
+	}
+	if !userState.CorrectPassword(param.Username, param.Password) {
+		response.ClientErr(c, "wrong password")
+		return
+	}
+	response.Success(c)
 }
