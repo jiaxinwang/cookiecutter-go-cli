@@ -49,6 +49,9 @@ func main() {
 	}
 	mw := io.MultiWriter(os.Stdout, logFile)
 	logrus.SetOutput(mw)
+{% if cookiecutter.use_gin == "y" -%}		
+	gin.DefaultWriter = mw
+{%- endif %}
 
 	app := cli.NewApp()
 	app.Name = "{{cookiecutter.app_name}}"
