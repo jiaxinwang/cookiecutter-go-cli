@@ -30,6 +30,7 @@ func GinEngine() *gin.Engine {
 	return r
 }
 
+{% if cookiecutter.use_gin == "y" -%}
 // V1 api set
 func V1(r *gin.Engine) {
 	g := r.Group("/v1")
@@ -48,3 +49,5 @@ func Debug(r *gin.Engine) {
 		r.GET("/hello", nil)
 	}
 }
+
+{%- endif %}

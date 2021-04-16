@@ -49,7 +49,7 @@ func main() {
 	}
 	mw := io.MultiWriter(os.Stdout, logFile)
 	logrus.SetOutput(mw)
-{% if cookiecutter.use_gin == "y" -%}		
+{% if cookiecutter.use_gin == "y" -%}
 	gin.DefaultWriter = mw
 {%- endif %}
 
