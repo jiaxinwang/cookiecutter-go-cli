@@ -1,12 +1,14 @@
 package db
 
 import (
-	"github.com/sirupsen/logrus"
+	"fmt"
+	"log"
+	"os"
+	"time"
 
 	"gorm.io/driver/{{cookiecutter.use_db}}"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-
 )
 
 // DB ...
