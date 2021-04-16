@@ -39,7 +39,7 @@ def remove_db_files():
     shutil.rmtree(os.path.join(
         PROJECT_DIRECTORY, "db"
     ))
-    remove_file(os.path.join(PROJECT_DIRECTORY, "action", "db.go"))
+    remove_file(os.path.join("action", "db.go"))
 
 def go():
     GOMOD_COMMANDS = [
@@ -57,8 +57,7 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
 
 if '{{cookiecutter.use_gin}}'.lower() == 'n':
     remove_file(os.path.join("action", "server.go"))
-    # remove_file(os.path.join(PROJECT_DIRECTORY, "action", "server.go"))
-    # remove_file(os.path.join(PROJECT_DIRECTORY, "middleware"))
+    remove_file(os.path.join("middleware"))
 else:
     pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
     wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
