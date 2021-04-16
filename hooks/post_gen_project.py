@@ -13,6 +13,15 @@ from subprocess import Popen
 # Get the root project directory
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
+def remove_dir(dirname):
+    """
+    generic remove file from project dir
+    """
+    fullpath = os.path.join(PROJECT_DIRECTORY, dirname)
+    if os.path.exists(fullpath):
+        os.rmdir(fullpath)
+
+
 def remove_file(filename):
     """
     generic remove file from project dir
@@ -57,7 +66,8 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
 
 if '{{cookiecutter.use_gin}}'.lower() == 'n':
     remove_file(os.path.join("action", "server.go"))
-    remove_file(os.path.join("middleware","jwt.go"))
+    # remove_file(os.path.join("middleware","jwt.go"))
+    remove_dir(os.path.join("middleware"))
 else:
     pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
     wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
