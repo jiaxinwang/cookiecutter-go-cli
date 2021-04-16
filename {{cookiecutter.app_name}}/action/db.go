@@ -6,13 +6,18 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var set = []interface{}{}
+
 // InitDB ...
 func InitDB(c *cli.Context) error {
 	db.Connect(c.String(`dsn`))
 	if c.Bool("recreate") {
-		db.DB.DropTable()
+		for _, v := range set {
+			db.DB.Migrator().DropTable(v)
+		}
 	}
-	db.DB.AutoMigrate()
-
+	for _, v := range set {
+		db.DB.Migrator().AutoMigrate(v)
+	}
 	return nil
 }
