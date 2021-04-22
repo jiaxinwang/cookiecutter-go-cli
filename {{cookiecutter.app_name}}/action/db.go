@@ -21,4 +21,3 @@ func InitDB(c *cli.Context) error {
 	}
 	return nil
 }
-coo
