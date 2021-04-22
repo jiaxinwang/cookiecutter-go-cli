@@ -20,7 +20,6 @@ def remove_dir(dirname):
     fullpath = os.path.join(PROJECT_DIRECTORY, dirname)
     if os.path.exists(fullpath):
         shutil.rmtree(fullpath)
-        # os.rmdir(fullpath)
 
 
 def remove_file(filename):
@@ -66,9 +65,10 @@ if '{{cookiecutter.use_db}}'.lower() == 'none':
     remove_db_files()
 
 if '{{cookiecutter.use_gin}}'.lower() == 'n':
-    remove_file(os.path.join("action", "server.go"))
-    # remove_file(os.path.join("middleware","jwt.go"))
+    # remove_file(os.path.join("action", "server.go"))
     remove_dir(os.path.join("middleware"))
+    remove_dir(os.path.join("controller"))
+    remove_dir(os.path.join("auth"))
 else:
     pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
     wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
