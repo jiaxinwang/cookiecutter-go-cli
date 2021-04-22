@@ -19,7 +19,8 @@ def remove_dir(dirname):
     """
     fullpath = os.path.join(PROJECT_DIRECTORY, dirname)
     if os.path.exists(fullpath):
-        os.rmdir(fullpath)
+        shutil.rmtree()
+        # os.rmdir(fullpath)
 
 
 def remove_file(filename):
