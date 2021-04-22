@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-{% if cookiecutter.use_gin == "y" -%}	
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/action"
-{%- endif %}
 {% if cookiecutter.use_survey == "y" -%}
 	"github.com/AlecAivazis/survey/v2"
 {%- endif %}
