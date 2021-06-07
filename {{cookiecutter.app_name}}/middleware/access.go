@@ -33,15 +33,15 @@ func RequestLogger(c *gin.Context) {
 		bodyReader := ioutil.NopCloser(bytes.NewBuffer(buf))
 		dupReader := ioutil.NopCloser(bytes.NewBuffer(buf))
 
-		logrus.WithFields(logrus.Fields{
-			"BODY":      read(bodyReader),
-			"RequestID": c.MustGet("requestID"),
-			"HEADER":    c.Request.Header,
-			"PARAMS":    c.Params,
-			"IP":        c.ClientIP(),
-			"METHOD":    c.Request.Method,
-			"PATH":      c.Request.URL.Path,
-		}).Trace("[API]<--")
+		l.S.Debugw("[API]<--",
+			"BODY", read(bodyReader),
+			"RequestID", c.MustGet("requestID"),
+			"HEADER", c.Request.Header,
+			"PARAMS", c.Params,
+			"IP", c.ClientIP(),
+			"METHOD", c.Request.Method,
+			"PATH", c.Request.URL.Path,
+		)
 
 		c.Request.Body = dupReader
 		c.Next()

@@ -5,8 +5,6 @@ import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/response"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
-
 )
 
 // Signup ...
