@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/sirupsen/logrus"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
 	"github.com/xyproto/pstore"
 )
 
@@ -12,7 +12,7 @@ var Perm *pstore.Permissions
 func Init(dsn, db string) {
 	var err error
 	if Perm, err = pstore.NewWithDSN(dsn, db); err != nil {
-		logrus.WithError(err).Fatal()
+		l.S.Panic(err)
 		return
 	}
 

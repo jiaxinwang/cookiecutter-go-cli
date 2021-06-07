@@ -2,7 +2,8 @@ package config
 
 import (
 	"github.com/BurntSushi/toml"
-	"github.com/sirupsen/logrus"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
+
 )
 
 // Config ...
@@ -26,9 +27,9 @@ var Config struct {
 
 // Load ...
 func Load(filename string) {
-	logrus.Print(filename)
+	l.S.Info(filename)
 	if _, err := toml.DecodeFile(filename, &Config); err != nil {
-		logrus.WithError(err).Panic()
+		l.S.Panic(err)
 		return
 	}
 }

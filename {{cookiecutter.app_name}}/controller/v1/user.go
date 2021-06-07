@@ -5,7 +5,8 @@ import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/response"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
+
 )
 
 // Signup ...
@@ -18,17 +19,13 @@ func Signup(c *gin.Context) {
 	}{}
 
 	if err := c.ShouldBindJSON(&param); err != nil {
-		logrus.WithField("requestID", requestID).Error(err)
 		response.ClientErr(c, err.Error())
 		return
 	}
 
 	if result, err := govalidator.ValidateStruct(param); err != nil {
-		logrus.WithField("requestID", requestID).Error(err)
 		response.ClientErr(c, err.Error())
 		return
-	} else {
-		logrus.Trace(result)
 	}
 
 	userState := auth.Perm.UserState()

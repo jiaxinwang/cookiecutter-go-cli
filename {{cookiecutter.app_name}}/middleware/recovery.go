@@ -22,8 +22,6 @@ func Recovery(c *gin.Context) {
 		if err := recover(); err != nil {
 			// stack := stack(3)
 			// httprequest, _ := httputil.DumpRequest(c.Request, false)
-			// logrus.WithError().Info()
-			// logger.Error(fmt.Sprintf("[Recovery] %s panic recovered:\n%s\n%s\n%s", timeFormat(time.Now()), string(httprequest), err, stack))
 			c.AbortWithStatus(500)
 		}
 	}()

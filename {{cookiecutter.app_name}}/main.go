@@ -5,11 +5,10 @@ import (
 	"io"
 	"os"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/action"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
 {% if cookiecutter.use_survey == "y" -%}
 	"github.com/AlecAivazis/survey/v2"
 {%- endif %}
-	nested "github.com/antonfisher/nested-logrus-formatter"
-	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )
 
@@ -35,20 +34,6 @@ var questions = []*survey.Question{
 {%- endif %}
 
 func main() {
-	logrus.SetFormatter(&nested.Formatter{
-		TimestampFormat: "01/02/15:04:05",
-		HideKeys:        false,
-		ShowFullLevel:   true,
-		FieldsOrder:     []string{"component", "category"},
-	})
-	logrus.SetReportCaller(true)
-	logrus.SetLevel(logrus.TraceLevel)
-	logFile, err := os.OpenFile("logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		panic(fmt.Sprintf("[Error]: %s", err))
-	}
-	mw := io.MultiWriter(os.Stdout, logFile)
-	logrus.SetOutput(mw)
 {% if cookiecutter.use_gin == "y" -%}
 	gin.DefaultWriter = mw
 {%- endif %}
@@ -93,7 +78,7 @@ func main() {
 		Color string
 	}{}
 	if err := survey.Ask(questions, &answers);err != nil {
-		logrus.WithError(err).Error()
+		l.S.Panic(err)
 		return
 	}
 {%- endif %}
