@@ -1,15 +1,13 @@
 [Server]
-Listen = ":42424"
 Env = "Dev"
+Listen = ":42424"
 MaxHttpRequestBody = 4
-UseTLS = false
-TLSPem = ""
 TLSKey = ""
+TLSPem = ""
+UseTLS = false
 
 [Database]
-DSN = "host=127.0.0.1 user=root dbname=permission sslmode=disable password=password port=5432"
-    [Permission]
-    DSN="host=127.0.0.1 user=root dbname=permission sslmode=disable password=password port=5432"
-    DB="permission"
-
-
+DSN = "host=127.0.0.1 user=root dbname={{cookiecutter.app_name}} sslmode=disable password=password port=5432"
+[Permission]
+DB = "permission"
+DSN = "host=127.0.0.1 user=root dbname={{cookiecutter.app_name}}-permission sslmode=disable password=password port=5432"
