@@ -12,7 +12,7 @@ import (
 
 // Server ...
 func Server(c *cli.Context) error {
-	config.Load(c.String(`conf`))
+	Prepare(c)
 	GinEngine().Run(config.Config.Server.Listen)
 	return nil
 }
