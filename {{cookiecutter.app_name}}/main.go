@@ -35,6 +35,8 @@ var questions = []*survey.Question{
 
 func main() {
 {% if cookiecutter.use_gin == "y" -%}
+	ginLog, _ := os.OpenFile("./gin.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModePerm)
+	mw := io.MultiWriter(os.Stdout, ginLog)
 	gin.DefaultWriter = mw
 {%- endif %}
 
@@ -83,9 +85,8 @@ func main() {
 	}
 {%- endif %}
 
-	err = app.Run(os.Args)
-	if err != nil {
-		panic(err)
+	if err := app.Run(os.Args);err!=nil{
+		l.S.Panic(err)
 	}
 }
 
