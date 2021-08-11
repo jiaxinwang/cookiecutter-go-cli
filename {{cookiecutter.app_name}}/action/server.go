@@ -7,7 +7,8 @@ import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/auth"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/config"
 	v1 "{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/v1"
-
+	gm "github.com/jiaxinwang/common/gin-middleware"
+	"github.com/jiaxinwang/lazy"
 )
 
 // Server ...
@@ -27,6 +28,8 @@ func GinEngine() *gin.Engine {
 	r.Use(middleware.RequestLogger)
 	r.GET("/health")
 	V1(r)
+	DogAPI(r)
+	CatAPI(r)
 	return r
 }
 
@@ -44,5 +47,79 @@ func Debug(r *gin.Engine) {
 	r.Use(middleware.AuthMiddleware.MiddlewareFunc())
 	{
 		r.GET("/hello", nil)
+	}
+}
+
+// DogAPI api set
+func DogAPI(r *gin.Engine) {
+	g := r.Group("/v1/dog").Use(gm.Trace, lazy.MiddlewareParams, lazy.MiddlewareResponse, lazy.MiddlewareDefaultResult, lazy.MiddlewareExec)
+	{
+		g.GET("", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultGetAction}},
+			})
+			return
+		})
+		g.POST("", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPostAction}},
+			})
+			return
+		})
+		g.PUT("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPutAction}},
+			})
+			return
+		})
+		g.PATCH("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPatchAction}},
+			})
+			return
+		})
+		g.DELETE("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultDeleteAction}},
+			})
+			return
+		})
+	}
+}
+
+// CatAPI api set
+func CatAPI(r *gin.Engine) {
+	g := r.Group("/v1/cat").Use(gm.Trace, lazy.MiddlewareParams, lazy.MiddlewareResponse, lazy.MiddlewareDefaultResult, lazy.MiddlewareExec)
+	{
+		g.GET("", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultGetAction}},
+			})
+			return
+		})
+		g.POST("", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPostAction}},
+			})
+			return
+		})
+		g.PUT("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPutAction}},
+			})
+			return
+		})
+		g.PATCH("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPatchAction}},
+			})
+			return
+		})
+		g.DELETE("/:id", func(c *gin.Context) {
+			c.Set(lazy.KeyConfig, lazy.Configuration{
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultDeleteAction}},
+			})
+			return
+		})
 	}
 }
