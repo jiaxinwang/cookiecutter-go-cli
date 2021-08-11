@@ -103,16 +103,16 @@ func CatAPI(r *gin.Engine) {
 	{
 		g.GET("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{
-					Action: lazy.DefaultGetAction},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
+					{Action: lazy.DefaultGetAction},
 				},
 			})
 			return
 		})
 		g.POST("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{
-					Action: lazy.DefaultPostAction},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
+					{Action: lazy.DefaultPostAction},
 				},
 			})
 			return
