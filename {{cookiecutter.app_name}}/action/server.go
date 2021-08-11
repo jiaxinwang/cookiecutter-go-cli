@@ -36,8 +36,6 @@ func V1(r *gin.Engine) {
 	{
 		g.GET("/echo", nil)
 		g.POST("/signup", v1.Signup)
-		g.POST("/login", v1.Login)
-
 	}
 }
 
