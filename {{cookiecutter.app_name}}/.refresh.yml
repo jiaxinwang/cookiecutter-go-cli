@@ -1,8 +1,8 @@
 app_root: .
-binary_name: refresh-build
+binary_name: { { cookiecutter.app_name } }
 build_delay: 200ns
 build_flags: []
-build_path: /var/folders/7f/zh3ncx6x2vgcf3d08p08j9jc0000gn/T/
+build_path: /tmp/{{cookiecutter.app_name}}
 build_target_path: ""
 command_env: []
 command_flags: ["--conf=./config.toml", "server"]

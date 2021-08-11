@@ -3,3 +3,4 @@ bin
 vendor
 {{cookiecutter.app_name}}
 *.log
+sqlite.db
