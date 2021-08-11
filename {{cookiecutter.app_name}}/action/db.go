@@ -6,7 +6,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var set = []interface{}{}
+var set = []interface{}{
+	&model.Dog{},
+	&model.Cat{},
+}
 
 // InitDB ...
 func InitDB(c *cli.Context) error {
