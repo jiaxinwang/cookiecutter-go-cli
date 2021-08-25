@@ -11,11 +11,17 @@ import (
 	v1 "{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/v1"
 	gm "github.com/jiaxinwang/common/gin-middleware"
 	"github.com/jiaxinwang/lazy"
+	idiocy "github.com/jiaxinwang/go-idiocy/doc"
+	
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Server ...
 func Server(c *cli.Context) error {
 	Prepare(c)
+	idiocy.Analyse("__PATH_TO_GO_MOD_FILE__")
+	doc.Init()
 	GinEngine().Run(config.Config.Server.Listen)
 	return nil
 }
@@ -57,42 +63,32 @@ func DogAPI(r *gin.Engine) {
 	g := r.Group("/v1/dog").Use(gm.Trace, lazy.MiddlewareParams, lazy.MiddlewareResponse, lazy.MiddlewareDefaultResult, lazy.MiddlewareExec)
 	{
 		g.GET("", func(c *gin.Context) {
-			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
-					{Action: lazy.DefaultGetAction},
-				},
+			c.Set(lazy.KeyConfig, &lazy.Configuration{
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultGetAction}}
 			})
 			return
 		})
 		g.POST("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPostAction},
-				},
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPostAction}}
 			})
 			return
 		})
 		g.PUT("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPutAction},
-				},
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPutAction}}
 			})
 			return
 		})
 		g.PATCH("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPatchAction},
-				},
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultPatchAction}}
 			})
 			return
 		})
 		g.DELETE("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
-					{Action: lazy.DefaultDeleteAction},
-				},
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultDeleteAction}}
 			})
 			return
 		})
@@ -105,41 +101,31 @@ func CatAPI(r *gin.Engine) {
 	{
 		g.GET("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
-					{Action: lazy.DefaultGetAction},
-				},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultGetAction}}
 			})
 			return
 		})
 		g.POST("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPostAction},
-				},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPostAction}}
 			})
 			return
 		})
 		g.PUT("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPutAction},
-				},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPutAction}}
 			})
 			return
 		})
 		g.PATCH("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
-					{Action: lazy.DefaultPatchAction},
-				},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultPatchAction}}
 			})
 			return
 		})
 		g.DELETE("/:id", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
-				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
-					{Action: lazy.DefaultDeleteAction},
-				},
+				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{{Action: lazy.DefaultDeleteAction}}
 			})
 			return
 		})
