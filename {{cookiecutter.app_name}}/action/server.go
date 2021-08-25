@@ -64,7 +64,9 @@ func DogAPI(r *gin.Engine) {
 	{
 		g.GET("", func(c *gin.Context) {
 			c.Set(lazy.KeyConfig, &lazy.Configuration{
-				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{{Action: lazy.DefaultGetAction}}
+				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
+					{Action: lazy.DefaultGetAction},
+				}
 			})
 			return
 		})
