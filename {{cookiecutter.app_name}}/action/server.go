@@ -11,7 +11,7 @@ import (
 	v1 "{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/v1"
 	gm "github.com/jiaxinwang/common/gin-middleware"
 	"github.com/jiaxinwang/lazy"
-	"github.com/jiaxinwang/go-idiocy/doc"
+	idiocy "github.com/jiaxinwang/go-idiocy/doc"
 	
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
