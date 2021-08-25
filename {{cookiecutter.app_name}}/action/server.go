@@ -66,7 +66,7 @@ func DogAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, &lazy.Configuration{
 				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
 					{Action: lazy.DefaultGetAction},
-				}
+				},
 			})
 			return
 		})
@@ -74,7 +74,7 @@ func DogAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
 					{Action: lazy.DefaultPostAction},
-				}
+				},
 			})
 			return
 		})
@@ -82,7 +82,7 @@ func DogAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
 					{Action: lazy.DefaultPutAction},
-				}
+				},
 			})
 			return
 		})
@@ -90,7 +90,7 @@ func DogAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{,
 					{Action: lazy.DefaultPatchAction},
-				}
+				},
 			})
 			return
 		})
@@ -98,7 +98,7 @@ func DogAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Dog{}, Action: []lazy.Action{
 					{Action: lazy.DefaultDeleteAction},
-				}
+				},
 			})
 			return
 		})
@@ -113,7 +113,7 @@ func CatAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
 					{Action: lazy.DefaultGetAction},
-				}
+				},
 			})
 			return
 		})
@@ -121,7 +121,7 @@ func CatAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
 					{Action: lazy.DefaultPostAction},
-				}
+				},
 			})
 			return
 		})
@@ -129,7 +129,7 @@ func CatAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
 					{Action: lazy.DefaultPutAction},
-				}
+				},
 			})
 			return
 		})
@@ -137,7 +137,7 @@ func CatAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
 					{Action: lazy.DefaultPatchAction},
-				}
+				},
 			})
 			return
 		})
@@ -145,7 +145,7 @@ func CatAPI(r *gin.Engine) {
 			c.Set(lazy.KeyConfig, lazy.Configuration{
 				DB: db.DB, Model: &model.Cat{}, Action: []lazy.Action{
 					{Action: lazy.DefaultDeleteAction},
-				}
+				},
 			})
 			return
 		})
