@@ -21,6 +21,7 @@ import (
 // Server ...
 func Server(c *cli.Context) error {
 	Prepare(c)
+	// TODO:
 	idiocy.Analyse("__PATH_TO_GO_MOD_FILE__")
 	doc.Init()
 	GinEngine().Run(config.Config.Server.Listen)
@@ -29,7 +30,8 @@ func Server(c *cli.Context) error {
 
 // GinEngine ...
 func GinEngine() *gin.Engine {
-	auth.Init(config.Config.Permission.DSN, config.Config.Permission.DB)
+	// TODO: OPEN IT
+	// auth.Init(config.Config.Permission.DSN, config.Config.Permission.DB)
 	middleware.InitJWT()
 	r := gin.Default()
 	r.Use(middleware.Access)

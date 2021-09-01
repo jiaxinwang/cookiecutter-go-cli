@@ -33,6 +33,7 @@ func (s *s) ReadDoc() string {
 }
 
 func Init() {
+	// TODO:
 	content, _ := fs.ReadBytes("__PATH_TO_SWAGGER_FILE__")
 	doc = string(content)
 	swag.Register(swag.Name, &s{})
