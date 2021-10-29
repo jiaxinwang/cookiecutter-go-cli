@@ -9,10 +9,12 @@ import (
 	
 )
 
+
+
 // Signup ...
 func Signup(c *gin.Context) {
 	requestID := c.MustGet("requestID")
-	l.S.Named("jwt").Infow("signup", "requestID", requestID)
+	log.Infow("signup", "requestID", requestID)
 	param := struct {
 		Name     string `valid:"alphanum,required,stringlength(6|12)"`
 		Password string `valid:"stringlength(6|128)"`
@@ -25,7 +27,7 @@ func Signup(c *gin.Context) {
 	}
 
 	if result, err := govalidator.ValidateStruct(param); err != nil {
-		l.S.Named("jwt").Warnw("signup", "validate.result", result)
+		log.Warnw("signup", "validate.result", result)
 		response.ClientErr(c, err.Error())
 		return
 	}

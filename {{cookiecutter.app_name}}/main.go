@@ -12,6 +12,13 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var log *zap.SugaredLogger
+
+func init() {
+	log = logger.S.Named("main")
+}
+
+
 {% if cookiecutter.use_survey == "y" -%}
 var questions = []*survey.Question{
 	{
@@ -80,13 +87,13 @@ func main() {
 		Color string
 	}{}
 	if err := survey.Ask(questions, &answers);err != nil {
-		l.S.Panic(err)
+		log.Panic(err)
 		return
 	}
 {%- endif %}
 
 	if err := app.Run(os.Args);err!=nil{
-		l.S.Panic(err)
+		log.Panic(err)
 	}
 }
 

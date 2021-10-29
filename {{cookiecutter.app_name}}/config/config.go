@@ -6,6 +6,13 @@ import (
 
 )
 
+var log *zap.SugaredLogger
+
+func init() {
+	log = logger.S.Named("config")
+}
+
+
 // Config ...
 var Config struct {
 	Server struct {
@@ -27,9 +34,9 @@ var Config struct {
 
 // Load ...
 func Load(filename string) {
-	l.S.Info(filename)
+	log.Info(filename)
 	if _, err := toml.DecodeFile(filename, &Config); err != nil {
-		l.S.Panic(err)
+		log.Panic(err)
 		return
 	}
 }

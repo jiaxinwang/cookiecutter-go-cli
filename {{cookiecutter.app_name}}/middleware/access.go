@@ -11,6 +11,13 @@ import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
 )
 
+var log *zap.SugaredLogger
+
+func init() {
+	log = logger.S.Named("middleware")
+}
+
+
 // Access ...
 func Access(c *gin.Context) {
 	c.Request.Body = http.MaxBytesReader(c.Writer, c.Request.Body, 16*1024*1024)
@@ -33,7 +40,7 @@ func RequestLogger(c *gin.Context) {
 		bodyReader := ioutil.NopCloser(bytes.NewBuffer(buf))
 		dupReader := ioutil.NopCloser(bytes.NewBuffer(buf))
 
-		l.S.Debugw("[API]<--",
+		log.Debugw("[API]<--",
 			"BODY", read(bodyReader),
 			"RequestID", c.MustGet("requestID"),
 			"HEADER", c.Request.Header,

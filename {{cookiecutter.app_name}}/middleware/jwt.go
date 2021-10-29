@@ -122,6 +122,6 @@ func InitJWT() {
 	})
 
 	if err != nil {
-		l.S.Error(err)
+		log.Error(err)
 	}
 }

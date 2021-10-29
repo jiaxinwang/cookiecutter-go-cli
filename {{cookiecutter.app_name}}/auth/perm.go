@@ -5,6 +5,13 @@ import (
 	"github.com/xyproto/pstore"
 )
 
+var log *zap.SugaredLogger
+
+func init() {
+	log = logger.S.Named("auth")
+}
+
+
 // Perm ...
 var Perm *pstore.Permissions
 
@@ -12,7 +19,7 @@ var Perm *pstore.Permissions
 func Init(dsn, db string) {
 	var err error
 	if Perm, err = pstore.NewWithDSN(dsn, db); err != nil {
-		l.S.Panic(err)
+		log.Panic(err)
 		return
 	}
 
