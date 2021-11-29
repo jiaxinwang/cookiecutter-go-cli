@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/action"
-	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/l"
+	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/logger"
 {% if cookiecutter.use_survey == "y" -%}
 	"github.com/AlecAivazis/survey/v2"
 {%- endif %}
