@@ -60,6 +60,16 @@ def go():
         gomod = Popen(command, cwd=PROJECT_DIRECTORY)
         gomod.wait()
 
+    pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
+    wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
+    SED_COMMANDS = [
+        ["sed", "-i", pattern, wsfile]
+    ]
+    for command in SED_COMMANDS:
+        sed = Popen(command, cwd=PROJECT_DIRECTORY)
+        sed.wait()
+
+
 
 if '{{cookiecutter.use_db}}'.lower() == 'none':
     remove_db_files()
@@ -69,15 +79,7 @@ if '{{cookiecutter.use_gin}}'.lower() == 'n':
     remove_dir(os.path.join("controller"))
     remove_dir(os.path.join("auth"))
     remove_file(os.path.join("action", "server.go"))
-else:
-    pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
-    wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
-    SED_COMMANDS = [
-        ["sed", "-i", pattern, wsfile]
-    ]
-    for command in SED_COMMANDS:
-        sed = Popen(command, cwd=PROJECT_DIRECTORY)
-        sed.wait()
+    
 
 # Initialize Go Modules
 go()

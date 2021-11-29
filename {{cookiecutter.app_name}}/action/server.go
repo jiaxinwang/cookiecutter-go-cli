@@ -6,24 +6,19 @@ import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/middleware"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/auth"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/config"
+{% if cookiecutter.use_db != "none" -%}
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/db"
+{%- endif %}
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/model"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/doc"
 	v1 "{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/v1"
 	gm "github.com/jiaxinwang/common/gin-middleware"
 	"github.com/jiaxinwang/lazy"
-	idiocy "github.com/jiaxinwang/go-idiocy/doc"
-	
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Server ...
 func Server(c *cli.Context) error {
 	Prepare(c)
-	// TODO:
-	idiocy.Analyse("__PATH_TO_GO_MOD_FILE__")
-	doc.Init()
 	GinEngine().Run(config.Config.Server.Listen)
 	return nil
 }
@@ -41,10 +36,6 @@ func GinEngine() *gin.Engine {
 	V1(r)
 	DogAPI(r)
 	CatAPI(r)
-
-	url := ginSwagger.URL("http://127.0.0.1:42424/swagger/doc.json")
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-
 
 	return r
 }

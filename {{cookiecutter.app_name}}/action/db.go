@@ -1,7 +1,9 @@
 package action
 
 import (
+{% if cookiecutter.use_db != "none" -%}
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/db"
+{%- endif %}
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/model"
 
 	"github.com/urfave/cli/v2"
