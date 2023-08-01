@@ -2,10 +2,13 @@
 
 BIN_NAME={{cookiecutter.app_name}}
 
-VERSION := $(shell grep "const Version " version/version.go | sed -E 's/.*"(.+)"$$/\1/')
 GIT_COMMIT=$(shell git rev-parse HEAD)
-GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
+GIT_COMMIT_CNT := $(shell git rev-list --all --count)
+GIT_TAG=$(shell git describe --tags --abbrev=0)
+GIT_HASH=$(shell git rev-parse --short HEAD)
 BUILD_DATE=$(shell date '+%Y-%m-%d-%H:%M:%S')
+
+TAG=$(GIT_TAG).$(GIT_COMMIT_CNT).$(GIT_HASH)
 
 default: test
 
@@ -19,8 +22,24 @@ help:
 
 build:
 	@echo "building ${BIN_NAME} ${VERSION}"
-	@echo "GOPATH=${GOPATH}"
-	go build -ldflags "-X github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/{{cookiecutter.github_username}}/{{cookiecutter.app_name}}/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
+	go build -o bin/${BIN_NAME}
+
+docker-save:
+	docker save wangjiaxin/$(BIN_NAME):$(TAG) > $(BIN_NAME).$(TAG).tar && docker save wangjiaxin/$(BIN_NAME):latest > $(BIN_NAME).latest.tar
+
+docker-build:
+	docker build . -t wangjiaxin/$(BIN_NAME):$(TAG) && docker tag wangjiaxin/$(BIN_NAME):$(TAG) wangjiaxin/$(BIN_NAME):latest && \
+	docker tag wangjiaxin/$(BIN_NAME):$(TAG) registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):$(TAG) && \
+	docker tag wangjiaxin/$(BIN_NAME):$(TAG) registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):$(GIT_TAG) && \
+	docker tag wangjiaxin/$(BIN_NAME):$(TAG) registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):latest
+
+docker-push:
+	docker push wangjiaxin/$(BIN_NAME):$(TAG) && docker push wangjiaxin/$(BIN_NAME):latest
+
+docker-push-aliyun:
+	docker push registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):$(TAG); \
+	docker push registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):$(GIT_TAG); \
+	docker push registry.cn-beijing.aliyuncs.com/showmethemoney/$(BIN_NAME):latest
 
 clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
