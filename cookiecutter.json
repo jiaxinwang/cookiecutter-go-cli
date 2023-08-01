@@ -2,9 +2,14 @@
     "full_name": "Space Oddity",
     "app_name": "major-tom",
     "project_short_description": "Ground Control to Major Tom ...",
-    "use_github": "n",
+    "use_github": "y",
     "github_username": "jiaxinwang",
-    "use_db": ["postgres", "mysql", "sqlite","none"],
+    "use_db": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "none"
+    ],
     "use_survey": "n",
-    "use_gin": "n"
+    "use_gin": "y"
 }

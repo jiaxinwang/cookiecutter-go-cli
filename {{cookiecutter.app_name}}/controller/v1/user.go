@@ -3,7 +3,6 @@ package v1
 import (
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/auth"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/controller/response"
-	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/util/logger"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	
@@ -14,7 +13,7 @@ import (
 // Signup ...
 func Signup(c *gin.Context) {
 	requestID := c.MustGet("requestID")
-	log.Infow("signup", "requestID", requestID)
+	_ = requestID
 	param := struct {
 		Name     string `valid:"alphanum,required,stringlength(6|12)"`
 		Password string `valid:"stringlength(6|128)"`
@@ -27,7 +26,7 @@ func Signup(c *gin.Context) {
 	}
 
 	if result, err := govalidator.ValidateStruct(param); err != nil {
-		log.Warnw("signup", "validate.result", result)
+		_ = result
 		response.ClientErr(c, err.Error())
 		return
 	}

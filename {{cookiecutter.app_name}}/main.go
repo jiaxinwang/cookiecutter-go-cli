@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"{% if cookiecutter.use_github == "y" -%}github.com/{{cookiecutter.github_username}}/{%- endif %}{{cookiecutter.app_name}}/action"
@@ -9,6 +8,10 @@ import (
 {% if cookiecutter.use_survey == "y" -%}
 	"github.com/AlecAivazis/survey/v2"
 {%- endif %}
+{% if cookiecutter.use_gin == "y" -%}
+	"github.com/gin-gonic/gin"
+{%- endif %}
+	"go.uber.org/zap"
 	"github.com/urfave/cli/v2"
 )
 

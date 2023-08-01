@@ -13,6 +13,7 @@ from subprocess import Popen
 # Get the root project directory
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
+
 def remove_dir(dirname):
     """
     generic remove file from project dir
@@ -30,6 +31,7 @@ def remove_file(filename):
     if os.path.exists(fullpath):
         os.remove(fullpath)
 
+
 def init_git():
     """
     Initialises git on the new project folder
@@ -44,14 +46,19 @@ def init_git():
         git = Popen(command, cwd=PROJECT_DIRECTORY)
         git.wait()
 
+
 def remove_db_files():
     shutil.rmtree(os.path.join(
         PROJECT_DIRECTORY, "db"
     ))
     remove_file(os.path.join("action", "db.go"))
 
+
 def go():
     GOMOD_COMMANDS = [
+        ["echo", "aaabbbccc"],
+        ["go", "mod", "tidy"],
+        ["go", "get", "-u"],
         ["go", "mod", "vendor"],
         ["gofmt", "-s", "-w", "."]
     ]
@@ -61,14 +68,13 @@ def go():
         gomod.wait()
 
     pattern = 's?__PATH__?'+PROJECT_DIRECTORY+'?'
-    wsfile = os.path.join(PROJECT_DIRECTORY,'{{cookiecutter.app_name}}.code-workspace')
+    wsfile = os.path.join(PROJECT_DIRECTORY, '{{cookiecutter.app_name}}.code-workspace')
     SED_COMMANDS = [
         ["sed", "-i", pattern, wsfile]
     ]
     for command in SED_COMMANDS:
         sed = Popen(command, cwd=PROJECT_DIRECTORY)
         sed.wait()
-
 
 
 if '{{cookiecutter.use_db}}'.lower() == 'none':
@@ -79,7 +85,7 @@ if '{{cookiecutter.use_gin}}'.lower() == 'n':
     remove_dir(os.path.join("controller"))
     remove_dir(os.path.join("auth"))
     remove_file(os.path.join("action", "server.go"))
-    
+
 
 # Initialize Go Modules
 go()
